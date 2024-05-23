@@ -18,15 +18,15 @@ export class ContactService {
     return this.http.get<ContactResponse<Contact>>(`${this.API}/${id}`);
   }
 
-  createContact(contact: Contact): Observable<any> {
-    return this.http.post(`${this.API}`, contact);
+  createContact(userId: string, contact: Contact): Observable<any> {
+    return this.http.post(`${this.API}/${userId}`, contact);
   }
 
-  updateContact(id: string, contact: Contact): Observable<any> {
+  updateContact(id: string | undefined, contact: Contact): Observable<any> {
     return this.http.put(`${this.API}/${id}`, contact);
   }
 
-  deleteContact(id: string): Observable<ContactResponse<any>> {
+  deleteContact(id: string | undefined): Observable<ContactResponse<any>> {
     return this.http.delete<ContactResponse<any>>(`${this.API}/${id}`);
   }
 }

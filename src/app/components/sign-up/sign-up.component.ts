@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import User, { UserResponse } from '../../Interfaces/user.interface';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -22,6 +23,8 @@ export class SignUpComponent {
   };
   private userService: UserService = inject(UserService);
   private router: Router = inject(Router);
+  private toastr: ToastrService = inject(ToastrService);
+
   signUp() {
     this.userService.createUser(this.signUpCredential).subscribe({
       next: (res: UserResponse<User>) => {
@@ -30,6 +33,10 @@ export class SignUpComponent {
       },
       error: (err: any) => {
         console.log(err.error.message);
+        this.toastr.error(err.error.message, 'Error', {
+          progressBar: true,
+          closeButton: true,
+        });
       },
     });
   }

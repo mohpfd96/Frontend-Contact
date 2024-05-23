@@ -3,17 +3,18 @@ export default interface Contact {
   userId: string;
   firstName: string;
   lastName: string;
-  email: string;
-  company: string;
-  birthday: Date;
-  phoneNumbers: PhoneNumbers[];
-  address: string;
-  profileImage: string;
-  notes: string;
+  email?: string;
+  company?: string;
+  birthday?: Date;
+  phoneNumbers: PhoneNumbers;
+  address?: string;
+  profileImage?: string;
+  category: string;
+  notes?: string;
 }
 interface PhoneNumbers {
   number: string;
-  type: string;
+  type?: string;
 }
 export interface ContactResponse<T> {
   message?: string;

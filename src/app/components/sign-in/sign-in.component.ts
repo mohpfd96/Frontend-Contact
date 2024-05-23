@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import User, { UserResponse } from '../../Interfaces/user.interface';
 import { UserService } from '../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,7 +21,8 @@ export class SignInComponent {
     remember: false,
   };
   private router: Router = inject(Router);
-  userService: UserService = inject(UserService);
+  private userService: UserService = inject(UserService);
+  private toastr: ToastrService = inject(ToastrService);
 
   signIn() {
     this.userService
@@ -31,6 +33,10 @@ export class SignInComponent {
         },
         error: (err: any) => {
           console.log(err.error.message);
+          this.toastr.error(err.error.message, 'Error', {
+            progressBar: true,
+            closeButton: true,
+          });
         },
       });
   }
