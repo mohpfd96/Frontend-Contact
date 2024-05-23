@@ -1,0 +1,58 @@
+<div class="md:p-12 pt-12 px-3">
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table
+      class="border dark:border-none w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-600 dark:text-gray-300"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Name</th>
+          <th scope="col" class="px-6 py-3 hidden xl:table-cell">Email</th>
+          <th scope="col" class="px-6 py-3">Phone</th>
+          <th scope="col" class="px-6 py-3 hidden md:table-cell">Company</th>
+          <th scope="col" class="text-center py-3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(contact of contacts; track contact._id){
+
+        <tr
+          class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ contact.firstName + " " + contact.lastName }}
+          </th>
+          <td class="px-6 py-4 hidden xl:table-cell">{{ contact.email }}</td>
+          <td class="px-6 py-4">{{ contact.phoneNumbers[0].number }}</td>
+          <td class="px-6 py-4 hidden md:table-cell">{{ contact.company }}</td>
+          <td class="py-4">
+            <div class="mx-auto xl:w-2/3 2xl:1/2 flex justify-between">
+              <button
+                class="px-4 mx-auto font-medium text-blue-600 dark:text-blue-500 border border-blue-600 dark:border-blue-500 p-2 rounded-xl hover:underline"
+              >
+                Edit
+              </button>
+              <button
+                class="px-4 mx-auto font-medium text-red-600 dark:text-red-500 border border-red-600 dark:border-red-500 p-2 rounded-xl hover:underline"
+              >
+                Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+        } @empty {
+        <td
+          class="text-center px-6 py-4 text-black dark:text-white backdrop-blur-md"
+          colspan="4"
+        >
+          No Contact Found!
+        </td>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
