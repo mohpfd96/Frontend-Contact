@@ -3,7 +3,7 @@ export default interface User {
   username: string;
   email: string;
   password: string;
-  googleId?: string;
+  googleUser?: boolean;
   profileImage: string;
   remember?: boolean;
 }

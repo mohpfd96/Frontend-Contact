@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import User, { UserResponse } from '../../Interfaces/user.interface';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../services/oauth2.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,6 +24,7 @@ export class SignInComponent {
   private router: Router = inject(Router);
   private userService: UserService = inject(UserService);
   private toastr: ToastrService = inject(ToastrService);
+  private authService: AuthService = inject(AuthService);
 
   signIn() {
     this.userService
@@ -44,6 +46,7 @@ export class SignInComponent {
     this.router.navigate(['/sign-up']);
   }
   signInGoogle() {
-    console.log('google.');
+    console.log('google');
+    this.authService.login();
   }
 }
