@@ -1,8 +1,8 @@
-// google-auth.component.ts
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import User, { UserResponse } from '../../Interfaces/user.interface';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-google-auth',
@@ -12,30 +12,27 @@ import { Router } from '@angular/router';
   imports: [],
 })
 export class GoogleAuthComponent implements OnInit {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.parseAndSendTokens();
   }
 
-  private parseAndSendTokens() {
-    const fragment = window.location.hash.substring(1);
+  parseAndSendTokens() {
+    const fragment = window.location.hash.substring(1); //after #
     const params = new URLSearchParams(fragment);
+    /*
     const accessToken = params.get('access_token');
-    const idToken = params.get('id_token');
     const expiresIn = params.get('expires_in');
     const tokenType = params.get('token_type');
     const scope = params.get('scope');
-    console.log(idToken);
-    if (accessToken && idToken) {
-      const tokenData = {
-        accessToken,
-        idToken,
-        expiresIn,
-        tokenType,
-        scope,
-      };
-
+    */
+    const idToken = params.get('id_token');
+    if (idToken) {
       this.http
         .post<UserResponse<User>>(
           'http://localhost:3000/api/users/handleGoogleAuth',
@@ -45,15 +42,28 @@ export class GoogleAuthComponent implements OnInit {
         )
         .subscribe(
           (res) => {
-            this;
+            this.toastr.success('Sign in Successful!', 'Success', {
+              progressBar: true,
+              closeButton: true,
+            });
             this.router.navigate([`contacts/${res.data._id}`]);
           },
           (error) => {
-            console.error('Error sending tokens', error);
+            this.toastr.error(
+              'Something wrong with token from google!',
+              'Error',
+              {
+                progressBar: true,
+                closeButton: true,
+              }
+            );
           }
         );
     } else {
-      console.error('Missing tokens');
+      this.toastr.error('Are you sure u login with google?!', 'Error', {
+        progressBar: true,
+        closeButton: true,
+      });
     }
   }
 }

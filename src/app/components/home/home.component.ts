@@ -11,6 +11,6 @@ import { Router } from '@angular/router';
 export class HomeComponent {
   router: Router = inject(Router);
   goHome() {
-    this.router.navigate(['/sign-in']);
+    this.router.navigate(['/sign-up']);
   }
 }

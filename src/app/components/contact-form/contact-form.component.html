@@ -4,7 +4,7 @@
       <label
         for="first_name"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >First name</label
+        >First name <span class="text-red-600">*</span></label
       >
       <input
         type="text"
@@ -12,14 +12,13 @@
         [(ngModel)]="contact.firstName"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Mohamad"
-        required
       />
     </div>
     <div>
       <label
         for="last_name"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >Last name</label
+        >Last name <span class="text-red-600">*</span></label
       >
       <input
         type="text"
@@ -27,7 +26,6 @@
         [(ngModel)]="contact.lastName"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Parsaei"
-        required
       />
     </div>
     <div>
@@ -42,7 +40,6 @@
         [(ngModel)]="contact.email"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="mohpfd96@gmail.com"
-        required
       />
     </div>
     <div>
@@ -64,7 +61,7 @@
       <label
         for="phone"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >Phone number</label
+        >Phone number <span class="text-red-600">*</span></label
       >
       <input
         type="tel"
@@ -73,7 +70,6 @@
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="0910123456"
         pattern="[0-9]{10}"
-        required
       />
     </div>
     <div>
@@ -95,17 +91,16 @@
     </div>
     <div>
       <label
-        for="visitors"
+        for="category"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >MAP SOON</label
-      >
+        >Category
+      </label>
       <input
         type="text"
-        name="visitors"
-        [(ngModel)]="contact.address"
+        name="category"
+        [(ngModel)]="contact.category"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder=""
-        required
+        placeholder="family,school,..."
       />
     </div>
     <div>

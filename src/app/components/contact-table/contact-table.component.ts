@@ -60,6 +60,7 @@ export class ContactTableComponent implements OnInit {
           this.filteredContacts = res.data;
         }
         this.distinctCategories();
+        this.filterContacts();
       },
       error: (err) => {
         console.log(err);
@@ -74,6 +75,10 @@ export class ContactTableComponent implements OnInit {
   deleteContact(id: string | undefined) {
     this.userService.deleteContact(id).subscribe({
       next: (res) => {
+        this.toastr.warning('Delete Successful!', 'Warning', {
+          progressBar: true,
+          closeButton: true,
+        });
         this.getAllContact();
       },
       error: (err) => {
@@ -111,7 +116,7 @@ export class ContactTableComponent implements OnInit {
     this.getAllContact();
   }
   filterContacts() {
-    this.filteredContacts = this.contacts.filter(
+    const filteredByText = this.contacts.filter(
       (contact) =>
         contact.firstName
           .toLowerCase()
@@ -122,7 +127,16 @@ export class ContactTableComponent implements OnInit {
         contact.phoneNumbers.number.includes(this.searchText) ||
         contact.category.toLowerCase().includes(this.searchText.toLowerCase())
     );
+
+    if (this.selectedCategories.size === 0) {
+      this.filteredContacts = filteredByText;
+    } else {
+      this.filteredContacts = filteredByText.filter((contact) =>
+        this.selectedCategories.has(contact.category)
+      );
+    }
   }
+
   toggleCategorySelection(category: string) {
     if (this.selectedCategories.has(category)) {
       this.selectedCategories.delete(category);

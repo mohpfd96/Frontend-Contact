@@ -26,9 +26,63 @@ export class SignUpComponent {
   private toastr: ToastrService = inject(ToastrService);
 
   signUp() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.signUpCredential.email)) {
+      this.toastr.error('Invalid email format!', 'Error', {
+        progressBar: true,
+        closeButton: true,
+      });
+      return;
+    }
+
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+    if (!passwordRegex.test(this.signUpCredential.password)) {
+      this.toastr.error(
+        'Password must be at least 8 Digits include 1 letter + 1 symbol.',
+        'Error',
+        {
+          progressBar: true,
+          closeButton: true,
+        }
+      );
+      return;
+    }
+    const usernameRegex = /\w{5,}/;
+
+    if (!usernameRegex.test(this.signUpCredential.username)) {
+      this.toastr.error(
+        'Username must contain at least 5 letters, numbers, or underscores.',
+        'Error',
+        {
+          progressBar: true,
+          closeButton: true,
+        }
+      );
+      return;
+    }
+
+    console.log(usernameRegex.test(this.signUpCredential.username));
+
+    if (!this.term) {
+      this.toastr.error(
+        'Agree with Terms, we dont have yet but check it 😂',
+        'Error',
+        {
+          progressBar: true,
+          closeButton: true,
+        }
+      );
+      return;
+    }
+
     this.userService.createUser(this.signUpCredential).subscribe({
       next: (res: UserResponse<User>) => {
         console.log(res);
+        this.toastr.success('Sign Up Successful!', 'Success', {
+          progressBar: true,
+          closeButton: true,
+        });
         this.router.navigate([`contacts/${res.data._id}`]);
       },
       error: (err: any) => {
@@ -46,5 +100,6 @@ export class SignUpComponent {
   }
   TermCheck(event: any) {
     this.term = event.target.checked;
+    console.log(event.target.checked);
   }
 }
